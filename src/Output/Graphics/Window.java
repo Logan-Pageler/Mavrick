@@ -1,4 +1,5 @@
 package Output.Graphics;
+
 import java.awt.Graphics;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -22,7 +23,7 @@ public class Window extends JPanel {
 
     }
 
-    public static void update_pixels(int[] pixels){
+    public static void update_pixels(int[] pixels) {
         Window.pixels = pixels;
     }
 
@@ -39,7 +40,7 @@ public class Window extends JPanel {
             frame.getContentPane().add(panel, BorderLayout.CENTER);
             frame.setVisible(true);
         });
-    
+
     }
-    
+
 }
