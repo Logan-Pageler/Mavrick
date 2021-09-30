@@ -37,4 +37,8 @@ public class Utils {
         return sum;
     }
 
+    public static double transfer_derivative(double output) {
+        return output * 1 - (output);
+    }
+
 }
