@@ -2,6 +2,7 @@ import java.lang.Math;
 import java.util.Random;
 import java.util.Arrays;
 
+
 public class Main {
     private final static double[][] data = {
         {
