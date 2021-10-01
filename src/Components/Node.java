@@ -1,50 +1,54 @@
+package Components;
+
 import java.util.Random;
+
+import Utils.Utils;
 
 public class Node {
 
-    public static double learing_rate = 0.05;
+    public static float learing_rate = 0.05f;
 
-    public double[] weights, previous;
-    public double bias, value;
+    public float[] weights, previous;
+    public float bias, value;
 
     // Previous is the values of previous nodes and the array should be kept alive
     // elsewear
-    public Node(double[] previous) {
+    public Node(float[] previous) {
         Random rn = new Random();
         this.previous = previous;
-        bias = rn.nextDouble() - 0.5;
-        weights = new double[previous.length];
+        bias = rn.nextFloat() - 0.5f;
+        weights = new float[previous.length];
 
         for (int i = 0; i < previous.length; i++) {
-            weights[i] = rn.nextDouble() - 0.5;
+            weights[i] = rn.nextFloat() - 0.5f;
         }
 
     }
 
-    public Node(double[] values, String string) {
+    public Node(float[] values, String string) {
         this.previous = values;
         String[] weights = string.substring(string.lastIndexOf(":") + 3, string.length() - 2).split(", ");
-        this.weights = new double[weights.length - 1];
+        this.weights = new float[weights.length - 1];
 
         for (int i = 0; i < weights.length - 1; i++) {
-            this.weights[i] = Double.parseDouble(weights[i]);
+            this.weights[i] = Float.parseFloat(weights[i]);
         }
 
-        this.bias = Double.parseDouble(weights[weights.length - 1]);
+        this.bias = Float.parseFloat(weights[weights.length - 1]);
 
     }
 
     // Returns value of node
-    public double calc_value() {
+    public float calc_value() {
 
         value = Utils.sigmoid(Utils.sum(previous, weights) + bias);
         return value;
     }
 
     // Returns errors for previous row of nodes
-    public double[] calc_prev_errors(double delta) {
+    public float[] calc_prev_errors(float delta) {
 
-        double[] errors = new double[weights.length];
+        float[] errors = new float[weights.length];
         for (int i = 0; i < errors.length; i++) {
             errors[i] = weights[i] * delta;
         }
@@ -52,8 +56,8 @@ public class Node {
     }
 
     // Returns errors for previous row of nodes and adjusts weights
-    public double[] learn(double error) {
-        double delta = error * Utils.transfer_derivative(value);
+    public float[] learn(float error) {
+        float delta = error * Utils.transfer_derivative(value);
 
         for (int i = 0; i < weights.length; i++) {
             weights[i] += learing_rate * delta * previous[i];
@@ -65,8 +69,8 @@ public class Node {
 
     }
 
-    public void learn_base(double error) {
-        double delta = error * Utils.transfer_derivative(value);
+    public void learn_base(float error) {
+        float delta = error * Utils.transfer_derivative(value);
 
         for (int i = 0; i < weights.length; i++) {
             weights[i] += learing_rate * delta * previous[i];
@@ -76,7 +80,7 @@ public class Node {
 
     public String toString() {
         String output = "{'value': " + value + ", 'weights': [";
-        for (double weight : weights) {
+        for (float weight : weights) {
             output += weight + ", ";
         }
         output += bias + "]}";

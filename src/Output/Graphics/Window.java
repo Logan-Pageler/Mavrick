@@ -18,7 +18,7 @@ public class Window extends JPanel {
         screen.draw(g);
     }
 
-    public static void update_pixels(int[] pixels) {
+    public static void update_pixels(float[] pixels) {
         screen.update(pixels);
     }
 
