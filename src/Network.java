@@ -19,6 +19,10 @@ public class Network {
         }
     }
 
+    public Network(String string) {
+        
+    }
+
     public double[] calc_output(double[] in) {
         for (int i = 0; i < in.length; i++) {
 
@@ -84,5 +88,6 @@ public class Network {
         }
         return output;
     }
+
 
 }
