@@ -16,8 +16,6 @@ public class Window extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         screen.draw(g);
-        System.out.println("hi2");
-
     }
 
     public static void update_pixels(int[] pixels) {

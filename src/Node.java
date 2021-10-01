@@ -21,6 +21,19 @@ public class Node {
 
     }
 
+    public Node(double[] values, String string) {
+        this.previous = values;
+        String[] weights = string.substring(string.lastIndexOf(":") + 3, string.length() - 2).split(", ");
+        this.weights = new double[weights.length - 1];
+
+        for (int i = 0; i < weights.length - 1; i++) {
+            this.weights[i] = Double.parseDouble(weights[i]);
+        }
+
+        this.bias = Double.parseDouble(weights[weights.length - 1]);
+
+    }
+
     // Returns value of node
     public double calc_value() {
 

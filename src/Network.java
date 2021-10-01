@@ -11,16 +11,37 @@ public class Network {
         values[0] = new double[size[1]];
         inputs = new double[size[0]];
         layers[0] = create_layer(inputs, size[1]);
+
         // Create rest of layers
         for (int i = 1; i < layers.length; i++) {
-
             values[i] = new double[size[i + 1]];
             layers[i] = create_layer(values[i - 1], size[i + 1]);
         }
     }
 
+    //load from save
     public Network(String string) {
-        
+
+        String[] layers = string.split("\n");
+
+        String[][] nodes = new String[layers.length - 1][];
+        for (int i = 0; i < layers.length - 1; i++) {
+            nodes[i] = layers[i + 1].substring(2, layers[i + 1].length() - 3).split("\\}, \\{");
+        }
+
+        this.layers = new Node[nodes.length][];
+        values = new double[nodes.length][];
+
+        //create input layer
+        values[0] = new double[nodes[0].length];
+        inputs = new double[Integer.parseInt(layers[0].substring(layers[0].indexOf(":") + 1))];
+        this.layers[0] = create_layer(inputs, nodes[0]);
+
+        //create rest of layers
+        for (int i = 1; i < values.length; i++) {
+            values[i] = new double[nodes[i].length];
+            this.layers[i] = create_layer(values[i - 1], nodes[i]);
+        }
     }
 
     public double[] calc_output(double[] in) {
@@ -77,8 +98,17 @@ public class Network {
         return layer;
     }
 
+    public Node[] create_layer(double[] values, String[] nodes) {
+        Node[] layer = new Node[nodes.length];
+        for (int j = 0; j < nodes.length; j++) {
+            layer[j] = new Node(values, nodes[j]);
+        }
+        return layer;
+    }
+
     public String toString() {
-        String output = "";
+        
+        String output = "Inputs:" + inputs.length + "\n";
         for (Node[] layer : layers) {
             output += "[";
             for (Node node : layer) {
